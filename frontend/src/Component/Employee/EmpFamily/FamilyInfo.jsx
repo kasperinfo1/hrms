@@ -4,12 +4,15 @@ import FamilyInfoTable from "./FamilyInfoTable.jsx";
 import FamilyInfoForm from "./FamilyInfoForm.jsx";
 import FamilyInfoFormEdit from "./FamilyInfoFormEdit.jsx";
 import BASE_URL from "../../../Pages/config/config.js";
+import toast from "react-hot-toast";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const FamilyInfo = (props) => {
   const [table, setTable] = useState(true);
   const [editForm, setEditForm] = useState(false);
   const [editData, setEditData] = useState({});
-
+  const route = useLocation().pathname.split("/")[1];
+  const history = useHistory();
   const handleFamilyInfoSubmit = (event, id) => {
     event.preventDefault();
       
@@ -20,13 +23,14 @@ const FamilyInfo = (props) => {
       Relationship: event.target[1].value,
       DOB: event.target[2].value,
       Occupation: event.target[3].value,
-      // parentMobile: event.target[4].value
+      parentMobile: event.target[4].value,
     };
 
     axios
       .post(
         `${BASE_URL}/api/family-info/` + localStorage.getItem("_id"),
         body,
+        
         {
           headers: {
             authorization: localStorage.getItem("token") || "",
@@ -34,11 +38,12 @@ const FamilyInfo = (props) => {
         }
       )
       .then((res) => {
+        toast.success("Family information added successfully!");
         setTable(false);
         setTable(true);
       })
       .catch((err) => {
-          
+        toast.error("Failed to add family information.");
       });
   };
 
@@ -64,19 +69,46 @@ const FamilyInfo = (props) => {
     setEditForm(false);
   };
 
+  // const handleFamilyInfoEditUpdate = (info, newInfo) => {
+  //   newInfo.preventDefault();
+      
+  //   let body = {
+  //     Name: newInfo.target[0].value,
+  //     Relationship: newInfo.target[1].value,
+  //     DOB: newInfo.target[2].value,
+  //     Occupation: newInfo.target[3].value,
+  //     parentMobile: newInfo.target[4].value
+  //   };
+  //   axios
+  //     .put(`${BASE_URL}/api/family-info/` + info["_id"], body, {
+  //       headers: {
+  //         authorization: localStorage.getItem("token") || "",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       toast.success("Family information updated successfully!");
+  //       setTable(false);
+  //       setTable(true);
+  //     })
+  //     .catch((err) => {
+          
+  //     });
+  //     toast.error("Failed to update family information.");
+
+  //   setEditForm(false);
+  // };
+
   const handleFamilyInfoEditUpdate = (info, newInfo) => {
     newInfo.preventDefault();
-      
+  
     let body = {
       Name: newInfo.target[0].value,
       Relationship: newInfo.target[1].value,
       DOB: newInfo.target[2].value,
       Occupation: newInfo.target[3].value,
-      // parentMobile: newInfo.target[4].value
+      parentMobile: newInfo.target[4].value,
     };
-
-      
-
+  
     axios
       .put(`${BASE_URL}/api/family-info/` + info["_id"], body, {
         headers: {
@@ -84,13 +116,15 @@ const FamilyInfo = (props) => {
         },
       })
       .then((res) => {
+        toast.success("Family information updated successfully!");
         setTable(false);
+        history.push(`/FamilyInfoTable`);
         setTable(true);
       })
       .catch((err) => {
-          
+        toast.error("Failed to update family information.");
       });
-
+  
     setEditForm(false);
   };
   const handleAddFormGenderChange = () => {};

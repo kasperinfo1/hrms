@@ -51,6 +51,7 @@ const FamilyInfoTable = (props) => {
           Relationship: data["Relationship"],
           DOB: data["DOB"].slice(0, 10),
           Occupation: data["Occupation"],
+          parentMobile: data["parentMobile"],
         }));
         setRowData(tempRowData);
       })
@@ -171,18 +172,13 @@ const FamilyInfoTable = (props) => {
 
       <div>
         {rowData.length > 0 ? (
-            <div style={{
-              // maxHeight: "68vh",
-              overflow: "auto",
-              position: "relative",
-            }}
-            className="table-responsive p-2 mb-3">  
           <table className="table" style={{ fontSize: ".9rem" }}>
             <thead>
               <tr>
                 <th style={rowHeadStyle}>Name</th>
                 <th style={rowHeadStyle}>Relationship</th>
                 <th style={rowHeadStyle}>DOB</th>
+                <th style={rowHeadStyle}>Contact</th>
                 <th style={rowHeadStyle}>Occupation</th>
                 <th style={rowHeadStyle} className="text-end">
                   Action
@@ -202,6 +198,9 @@ const FamilyInfoTable = (props) => {
                     {items.DOB}
                   </td>
                   <td style={rowBodyStyle} className="text-capitalize">
+                    {items.parentMobile}
+                  </td>
+                  <td style={rowBodyStyle} className="text-capitalize">
                     {items.Occupation}
                   </td>
                   <td style={rowBodyStyle} className="text-capitalize text-end">
@@ -215,7 +214,6 @@ const FamilyInfoTable = (props) => {
               ))}
             </tbody>
           </table>
-          </div>
         ) : (
           <div
             style={{

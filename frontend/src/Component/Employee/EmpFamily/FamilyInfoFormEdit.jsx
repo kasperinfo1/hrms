@@ -8,8 +8,13 @@ const FamilyInfoFormEdit = (props) => {
     props.editData["Relationship"]
   );
   const [dobData, setDOBData] = useState(props.editData["DOB"].slice(0, 10));
+  // const [contactData, setContactData] = useState(props.editData["parentMobile"].slice(0, 10));
+
   const [occupationData, setOccupationData] = useState(
     props.editData["Occupation"]
+  );
+  const [contactData, setContactData] = useState(
+    props.editData["parentMobile"]
   );
 
   const onNameDataChange = (e) => {
@@ -22,6 +27,9 @@ const FamilyInfoFormEdit = (props) => {
 
   const onOccupationDataChange = (e) => {
     setOccupationData(e.target.value);
+  };
+  const onsetContactDataChange = (e) => {
+    setContactData(e.target.value);
   };
 
   const onDOBDataChange = (e) => {
@@ -89,6 +97,20 @@ const FamilyInfoFormEdit = (props) => {
                 required
                 value={occupationData}
                 onChange={(e) => onOccupationDataChange(e)}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>
+            Contact
+            </Form.Label>
+            <Col sm={10} className="form-input">
+              <Form.Control
+                type="number"
+                placeholder="contact"
+                required
+                value={contactData}
+                onChange={(e) => onsetContactDataChange(e)}
               />
             </Col>
           </Form.Group>

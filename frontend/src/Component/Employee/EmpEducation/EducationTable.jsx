@@ -172,12 +172,6 @@ const EducationTable = (props) => {
 
       <div>
         {rowData.length > 0 ? (
-            <div style={{
-              // maxHeight: "68vh",
-              overflow: "auto",
-              position: "relative",
-            }}
-            className="table-responsive p-2 mb-3">  
           <table className="table">
             <thead>
               <tr>
@@ -223,7 +217,6 @@ const EducationTable = (props) => {
               ))}
             </tbody>
           </table>
-          </div>
         ) : (
           <div
             style={{

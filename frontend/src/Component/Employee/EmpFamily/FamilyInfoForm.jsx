@@ -47,7 +47,6 @@ const FamilyInfoForm = (props) => {
                 className="form-control"
                 type="Text"
                 placeholder="Occupation"
-                required
               />
             </div>
           </div>
